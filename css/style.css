@@ -1,4 +1,5 @@
 body {
+  min-width: 960px;
   margin: 0;
   padding: 0;
 
@@ -11,8 +12,44 @@ body {
 
   background-color: #000000;
   background-image: url("../img/bg.jpg");
-  background-position: top center;
   background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.inner-page {
+  color: #000000;
+
+  background-color: #f9f6f3;
+  background-image: url("img/pattern-light.jpg");
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+a {
+  text-decoration: none;    /*1. Добавляем стилевые правила для всех контентных изображений в проекте.*/
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.visually-hidden:not(:focus):not(:active), /*2. Добавим стили для скрытия элементов со страницы. line 28 - 44 */
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 .inner-page {
@@ -28,13 +65,12 @@ body {
   margin-bottom: 75px;
 }
 
-a {
-  text-decoration: none;
-}
+.button {                /*36. Теперь займемся стилизацией кнопок. Чтобы кнопки могли располагаться на одной строке, сделаем их блочно-строчными. Также добавим внутренние отступы.*/
+  display: inline-block;
+  margin-right: 16px;  /*37. Добавим внешний отступ справа, чтобы рядом стоящие кнопки не прилипали друг к другу.*/
+  padding: 10px 30px;
 
-.button {
   font: inherit;
-
   text-align: center;
   color: #ffffff;
   vertical-align: middle;
@@ -48,6 +84,13 @@ a {
 .button:focus,
 .button:active {
   background-color: #663d15;
+}
+
+.button.disabled,      /*38. Добавим стили для неактивной кнопки.*/
+.button:disabled {
+  cursor: default;
+  opacity: 0.5;
+  background-color: #000000;
 }
 
 .main-navigation {
@@ -89,15 +132,28 @@ a {
 }
 
 .site-navigation {
+  display: flex;   /*3. Сделаем список флекс-контейнером и разрешим перенос элементов на новую строку.*/
+  flex-wrap: wrap;
   width: 620px;
+
+  background: rgba(234, 255, 45, 0.2);
+  box-shadow: inset 0 0 0 2px rgb(234, 255, 45);  /*4. Займемся сеткой главного меню. Для начала подсветим этот элемент для удобства.*/
 }
 
 .user-navigation {
-  width: 140px;
+  display: flex;     /*5. Делаем список флекс-контейнером.*/
+  max-width: 140px;
+
+  /*background: rgba(234, 255, 45, 0.2);
+  box-shadow: inset 0 0 0 2px rgb(234, 255, 45);*/ /*6. Подсвечиваем блок пользовательского входа.*/
 }
 
 .site-navigation a,
 .user-navigation a {
+  display: block;   /*7. Делаем ссылки навигации блочными.*/
+  padding: 25px 20px;  /*8. Задаем ссылкам внутренние отступы и вертикальное выравнивание по центру.*/
+
+  vertical-align: middle;
   color: #ffffff;
 }
 
@@ -106,6 +162,39 @@ a {
 .user-navigation a:hover,
 .user-navigation a:focus {
   background-color: #242424;
+}
+
+.user-navigation .login-link {
+    position: relative;   /*9. Задаем position: relative, чтобы спозиционировать иконку относительно этой ссылки.*/
+    padding-left: 50px;  /*10. Задаем внутренний отступ слева, чтобы добавить туда иконку входа.*/
+
+    /*background: rgba(234, 255, 45, 0.2);                  /*11. Убираем подсветку списка и добавляем подсветку ссылке внутри этого списка.*/
+    /*box-shadow: inset 0 0 0 2px rgb(234, 255, 45);*/
+}
+
+.login-link::before {
+  content: "";
+
+  position: absolute;  /*13. Чтобы иконка отобразилась на странице, нужно задать ей абсолютное позиционирование относительно ссылки входа.*/
+  top: 27px;  /*14. Чтобы иконка не наезжала на текст ссылки и всегда находилась слева от нее, задаем координаты.*/
+  left: 24px;
+
+  width: 16px;
+  height: 18px;
+
+  color: #ffffff;
+  background-color: #ff0000;  /*12. Добавляем с помощью псевдоэлемента иконку входа на страницу. Сначала зададим контент, ширину, высоту и временный фоновый цвет.*/
+  background-image: url("../img/svg-barbershop/login.svg");  /*4. Добавляем фон с изображением иконки.*/
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  opacity: 0.3;  /*15. Добавляем прозрачность.*/
+}
+
+.login-link:hover::before,  /*18. Добавим для иконки стили при наведении и фокусе на ссылке, а также стили, когда ссылка активна.*/
+.login-link:focus::before,
+.login-link:active::before {
+  opacity: 1;
 }
 
 .container {
@@ -129,12 +218,43 @@ a {
 
 .feature-item {
   width: 300px;
+
   text-align: center;
+
+  background: rgba(255, 45, 82, 0.2);
+  /*box-shadow: 0 0 0 3px rgb(255, 45, 82); /*20. Зададим преимуществам вспомогательную подсветку.*/*/
 }
 
 .feature-item h3 {
+  position: relative;  /*23. Задаем заголовку относительное позиционирование.*/
+
+  margin: 0;            /*22. Добавляем правила для внешних отступов.*/
+  margin-bottom: 60px;
+
   font-size: 30px;
   line-height: 42px;
+
+  background: rgba(255, 45, 82, 0.5); /*21. Теперь добавим вспомогательную подсветку заголовкам.*/
+}
+
+.feature-item h3::after { /*24. Декоративные элементы создаем с помощью псевдоэлементов, которые будут позиционироваться относительно заголовков.*/
+  content: "";
+
+  position: absolute;
+  bottom: -30px;  /*25. Задаем координаты для пседоэлементов.*/
+  left: 50%;
+
+  width: 20px;
+  height: 20px;
+  margin-left: -10px; /*26. Добавим левый отрицательный отступ, чтобы элементы встали по центру блока.*/
+
+  background-color: #ffffff;
+
+  transform: rotate(45deg); /*27. Оталось только повернуть квадратики.*/
+}
+
+.feature-item p {
+  margin: 0 10px;   /*28. Зададим абзацам в разделах преимуществ внешние отступы.*/
 }
 
 .index-columns {
@@ -146,22 +266,42 @@ a {
   color: #000000;
 
   background-color: #f8f5f2;
-  background-image: url("../img/pattern-light.jpg");
-  background-position: 0 0;
-  background-repeat: repeat;
+  background-image:
+    url("../img/line.png"), /*29. Переходим к большим информационным разделам. Добавим index-columns еще один фон.*/
+    url("../img/pattern-light.jpg");
+  background-position: center, 0 0; /*30. Добавим новому фону стили, чтобы изображение не повторялось и находилось по центру родительского блока.*/
+  background-repeat: no-repeat, repeat;
 }
 
 .index-columns h2 {
+  margin: 0;            /*31. Зададим заголовку раздела новостей и остальным заголовкам второго уровня в подобных разделах внешние отступы.*/
+  margin-bottom: 25px;
+
   font-size: 30px;
   line-height: 42px;
 }
 
 .news {
   width: 380px;
+
+  background: rgba(0, 128, 0, 0.2);  /*32. Зададим подсветку разделу новостей.*/
+  box-shadow: 0 0 0 3px green;
 }
 
 .news-list {
+  margin: 0;     /*33. Списку новостей сбрасываем отступы и задаем внешний нижний отступ.*/
+  margin-bottom: 25px;
+  padding: 0;
+
   list-style: none;
+}
+
+.news-item {
+  margin-bottom: 25px; /*34. Каждой новости задаем нижний внешний отступ.*/
+}
+
+.news-item p {
+  margin: 0;  /*35. А у текста новости отменим внешние отступы.*/
 }
 
 .news-item time {
@@ -172,20 +312,92 @@ a {
   width: 300px;
 }
 
-.gallery-content {
+.gallery-container {
+  position: relative;  /*44. Задаем этому элементу высоту и относительное позиционирование.*/
+
+  height: 260px;
+
+  background: rgba(255, 45, 82, 0.2);  /*43. Добавим вспомогательную подсветку новому элементу.*/
+  box-shadow: 0 0 0 3px rgb(255, 45, 82);
+}
+
+.gallery-content { /*40. Переходим к разделу с галереей. Контейнеру фотографии задаем высоту и обнуляем внешние отступы.*/
+  height: 164px;
+  margin: 0;
+
   background-color: #cccccc;
   border: 7px solid #ffffff;
+}
+
+.gallery-content img {  /*41. Фотографии в галерее тоже задаем фиксированные размеры.*/
+  width: 286px;
+  height: 164px;
+}
+
+.gallery-button {
+  box-sizing: border-box;  /*45. Задаем обертке кнопок ширину, обнуляем внешние отступы и задаем box-sizing: border-box.*/
+  position: absolute;  /*46. Теперь абсолютно позиционируем этот элемент.*/
+  bottom: 0; /*47. Задаем координату.*/
+
+  width: 140px;
+  margin: 0;
+}
+
+.gallery-button-back {  /*48. Задаем самим кнопкам координаты. line 337 - 343*/
+  left: 0;
+}
+
+.gallery-button-next {
+  right: 0;
 }
 
 .contacts {
   width: 380px;
 }
 
+.contacts p {  /*49. В разделе контактов зададим правила для внешних отступов у абзацев.*/
+  margin: 0;
+  margin-bottom: 25px;
+}
+
 .appointment {
   width: 300px;
 }
 
+.appointment-info {  /*50. Переходим к форме записи. Зададим описанию формы внешние отступы.*/
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.appointment-form {
+  display: flex; /*52. Сделаем форму флекс-контейнером.*/
+  flex-wrap: wrap;  /*53. Разрешим перенос элементов на новую строку.*/
+  justify-content: space-between; /*55. Зададим форме равномерное распределение элементов.*/
+}
+
+.appointment-item {
+  width: 140px; /*54. Зададим элементам формы фиксированную ширину.*/
+  margin: 0;  /*56. Теперь каждому элементу задаем внешние отступы.*/
+  margin-bottom: 10px;
+
+  background: rgba(234, 255, 45, 0.2);  /*51. Теперь займемся микросеткой самой формы. Зададим вспомогательную подсветку элементам формы.*/
+  box-shadow: inset 0 0 0 2px rgb(234, 255, 45);
+}
+
+.appointment-item label {
+  display: block;  /*57. Подписи к полям ввода сделаем блочными элементами.*/
+  margin-bottom: 9px; /*58. Зададим внешние отступы.*/
+  margin-left: 15px;
+}
+
 .appointment-item input {
+  box-sizing: border-box;  /*59. Теперь займемся самими полями ввода. Задаем box-sizing: border-box, ширину и внутренние отступы. line 385 - 390*/
+  width: 140px;
+  padding-top: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 7px;
+
   font: inherit;
 
   background-color: transparent;
@@ -194,6 +406,13 @@ a {
 
 .appointment-item input:focus {
   border-color: #663d15;
+}
+
+.appointment .button {
+  display: block; /*60. Добавим стили кнопке в форме записи. Делаем кнопку блочной и задаем ширину 100%.*/
+  width: 100%;
+  margin-top: 10px; /*61. Задаем внешние отступы.*/
+  margin-right: 0;
 }
 
 .page-title {
@@ -352,7 +571,7 @@ a {
   color: #ffffff;
 
   background-color: #212121;
-  background-image: url("img/pattern-dark.jpg");
+  background-image: url("../img/pattern-dark.jpg");
   background-position: 0 0;
   background-repeat: repeat;
 }
@@ -364,7 +583,7 @@ a {
 .footer-contacts {
   width: 320px;
   margin: 0;
-  margin-right: 70px;
+  margin-right: 80px;
 }
 
 .footer-contacts a {
@@ -384,11 +603,39 @@ a {
 }
 
 .footer-social ul {
+  display: flex;  /*69. Список кнопок делаем флекс-контейнером и зададим фиксированную ширину. 597, 600*/
+  flex-wrap: wrap;  /*70. Разрешим перенос элементов на новую строку и зададим равномерное распределение. 598-599*/
+  justify-content: space-between;
+  width: 141px;
+  margin: 0 auto; /*71. Обнулим внутренние отступы у списка и отцентруем его с помощью внешних отступов.*/
+  padding: 0;
+
   list-style: none;
 }
 
+.footer-social b { /*74. Сделаем подпись в разделе социальных кнопок блочной и зададим внешний нижний отступ.*/
+  display: block;
+  margin-bottom: 15px;
+}
+
 .social-button {
-  color: #ffffff;
+  display: flex; /*67. Чтобы выравнять иконки в кнопках, делаем каждую кнопку флекс-контейнером.*/
+  align-items: center; /*68. Центруем иконки внутри каждой кнопки. line 614 - 615*/
+  justify-content: center;
+  width: 43px;  /*66. Задаем социальным кнопкам ширину, высоту и фоновый цвет.*/
+  height: 43px;
+
+  background-color: #000000;
+}
+
+.social-button:hover,      /*72. Зададим стили социальным кнопкам при наведении и фокусе.*/
+.social-button:focus {
+  background-color: #ffffff;
+}
+
+.social-button:hover path,  /*73. Добавим стили для самих иконок при наведении и фокусе на социальные кнопки.*/
+.social-button:focus path {
+  fill: #000000;
 }
 
 .footer-copyright {
@@ -398,9 +645,969 @@ a {
   text-align: center;
 }
 
+.footer-copyright .button {  /*76. Кнопку тоже сделаем блочной и обнулим ей правый внешний отступ.*/
+  display: block;
+  margin-right: 0;
+}
+
+.footer-copyright b {  /*75. Осталось стилизовать раздел копирайта. Подпись сделаем блочной и зададим нижний внешний отступ.*/
+  display: block;
+  margin-bottom: 15px;
+}
+
 .footer-copyright .button:hover,
 .footer-copyright .button:focus {
   color: #000000;
 
   background-color: #ffffff;
 }
+
+/*77, 78 Уберем все вспомогательные подсветки. Стилизация главной страницы готова.*/
+
+/*2a Всплывающая форма */
+.modal {
+  position: fixed;  /*3a Позиционируем модальное окно*/
+
+  color: #000000;           /*2a Переходим к оформлению. Добавляем ширину, внутренние отступы, фоновое изображение и цвет фона. Зададим черный цвет шрифта, чтобы его было видно на светлом фоне.*/
+
+  background-color: #f8f3f0;
+  background-image: url("img/pattern-light.jpg");
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.modal-login {
+  top: 120px;     /*3a ...и задаем координаты.*/
+  left: 50%;
+
+  width: 300px;
+  margin-left: -230px;    /*4a Пододвинем окно внешним отрицательным отступом слева.*/
+  padding: 50px 80px;
+}
+
+
+/* barbershop-shop */
+
+body {
+  min-width: 960px;
+  margin: 0;
+  padding: 0;
+
+  font-family: "PT Sans Narrow", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+
+  background-color: #000000;
+  background-image: url("img/bg.jpg");
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.inner-page {
+  color: #000000;
+
+  background-color: #f9f6f3;
+  background-image: url("img/pattern-light.jpg");
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.main-header {
+  margin-bottom: 75px;
+}
+
+.inner-page .main-header {
+  margin-bottom: 50px;
+
+  background-color: #000000;
+}
+
+.button {
+  display: inline-block;
+  margin-right: 16px;
+  padding: 10px 30px;
+
+  font: inherit;
+  text-align: center;
+  color: #ffffff;
+  vertical-align: middle;
+  text-transform: uppercase;
+
+  background-color: #000000;
+  border: none;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  background-color: #663d15;
+}
+
+.button.disabled,
+.button:disabled {
+  cursor: default;
+  opacity: 0.5;
+  background-color: #000000;
+}
+
+.main-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+
+  background-color: transparent;
+}
+
+.inner-page .main-navigation {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.main-header-logo {
+  order: 2;
+  width: 368px;
+  height: 153px;
+}
+
+.inner-page .main-header-logo {
+  order: 0;
+
+  width: 111px;
+  height: 24px;
+  padding: 23px 20px;
+}
+
+.main-navigation-wrapper {
+  width: 100%;
+  margin-bottom: 60px;
+
+  background-color: #000000;
+}
+
+.main-navigation-wrapper .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.site-navigation,
+.user-navigation {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  width: 620px;
+}
+
+.user-navigation {
+  display: flex;
+  max-width: 140px;
+}
+
+.inner-page .user-navigation {
+  margin-left: auto;
+}
+
+.site-navigation a,
+.user-navigation a {
+  display: block;
+  padding: 25px 20px;
+
+  vertical-align: middle;
+  color: #ffffff;
+}
+
+.site-navigation a:hover,
+.site-navigation a:focus,
+.user-navigation a:hover,
+.user-navigation a:focus {
+  background-color: #242424;
+}
+
+.user-navigation .login-link {
+  position: relative;
+  padding-left: 50px;
+}
+
+.login-link::before {
+  content: "";
+
+  position: absolute;
+  top: 27px;
+  left: 24px;
+
+  width: 16px;
+  height: 18px;
+
+  background-image: url("../img/login/svg-barbershop.svg");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  opacity: 0.3;
+}
+
+.login-link:hover::before,
+.login-link:focus::before,
+.login-link:active::before {
+  opacity: 1;
+}
+
+.container {
+  width: 940px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.features {
+  margin-bottom: 80px;
+}
+
+.features-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.feature-item {
+  width: 300px;
+
+  text-align: center;
+}
+
+.feature-item h3 {
+  position: relative;
+
+  margin: 0;
+  margin-bottom: 60px;
+
+  font-size: 30px;
+  line-height: 42px;
+}
+
+.feature-item h3::after {
+  content: "";
+
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+
+  background-color: #ffffff;
+
+  transform: rotate(45deg);
+}
+
+.feature-item p {
+  margin: 0 10px;
+}
+
+.index-columns {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 80px;
+  margin-bottom: 35px;
+
+  color: #000000;
+
+  background-color: #f8f5f2;
+  background-image:
+    url("img/line.png"),
+    url("img/pattern-light.jpg");
+  background-position: center, 0 0;
+  background-repeat: no-repeat, repeat;
+}
+
+.index-columns h2 {
+  margin: 0;
+  margin-bottom: 25px;
+
+  font-size: 30px;
+  line-height: 42px;
+}
+
+.news {
+  width: 380px;
+}
+
+.news-list {
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 0;
+
+  list-style: none;
+}
+
+.news-item {
+  margin-bottom: 25px;
+}
+
+.news-item p {
+  margin: 0;
+}
+
+.news-item time {
+  text-transform: none;
+}
+
+.gallery {
+  width: 300px;
+}
+
+.gallery-container {
+  position: relative;
+
+  height: 260px;
+}
+
+.gallery-content {
+  height: 164px;
+  margin: 0;
+
+  background-color: #cccccc;
+  border: 7px solid #ffffff;
+}
+
+.gallery-content img {
+  width: 286px;
+  height: 164px;
+}
+
+.gallery-button {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+
+  width: 140px;
+  margin: 0;
+}
+
+.gallery-button-back {
+  left: 0;
+}
+
+.gallery-button-next {
+  right: 0;
+}
+
+.contacts {
+  width: 380px;
+}
+
+.contacts p {
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.appointment {
+  width: 300px;
+}
+
+.appointment-info {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.appointment-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.appointment-item {
+  width: 140px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.appointment-item label {
+  display: block;
+  margin-bottom: 9px;
+  margin-left: 15px;
+}
+
+.appointment-item input {
+  box-sizing: border-box;
+  width: 140px;
+  padding-top: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 7px;
+
+  font: inherit;
+
+  background-color: transparent;
+  border: 2px solid #000000;
+}
+
+.appointment-item input:focus {
+  border-color: #663d15;
+}
+
+.appointment .button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  margin-right: 0;
+}
+
+.page-title {
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+
+  font-size: 30px;
+  line-height: 42px;
+}
+
+.breadcrumbs {    /*1b Займёмся микросеткой хлебных крошек. Зададим вспомогательную подсветку и сделаем список флекс-контейнером.*/
+  display: flex;
+  justify-content: flex-start;  /*2b Зададим правило для расположения элементов в начале основной оси и разрешим перенос элементом на новую строку.*/
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 50px;
+
+  list-style: none;
+
+  /*background: rgba(234, 255, 45, 0.2);*/
+  /*box-shadow: inset 0 0 0 2px rgb(234, 255, 45);*/  /*9b Убираем вспомогательную подсветку крошек и переходим к стилизации фильтрации.*/
+}
+
+.breadcrumbs li {
+  position: relative; /*4b Зададим каждому элементу относительное позиционирование и правый внешний отступ, куда далее добавим декоративный элемент.*/
+
+  margin-right: 42px;
+  /*background: rgba(255, 45, 82, 0.2);     3b Зададим вспомогательную подстветку пунктам навигации.*/
+  /*box-shadow: 0 0 0 3px rgb(255, 45, 82);*/
+}
+
+.breadcrumbs li:last-child {  /*8b *Отменяем последнему элементу в списке правый внешний отступ. */
+  margin-right: 0;
+}
+
+.breadcrumbs li::after {    /*5b Декоративный элемент добавляем с помощью псевдоэлемента.*/
+  content: "";
+
+  position: absolute;
+  top: 7px;
+  right: -25px;       /*6b Задаём координаты.*/
+
+  width: 8px;
+  height: 8px;
+
+  background-color: #000000;
+
+  transform: rotate(45deg);   /*7b Осталось повернуть псевдоэлемент.*/
+}
+
+.breadcrumbs a {
+  color: #000000;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus {
+  text-decoration: underline;
+}
+
+.breadcrumbs-current {
+  color: #aba9a7;
+}
+
+.breadcrumbs-current::after {   /*8b Прячем декоративную иконку для текущего пункта списка.*/
+  display: none;
+}
+
+.catalog-columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters {
+  width: 180px;
+}
+
+.filter fieldset {
+  padding: 0;     /*11b Каждому тегу fieldset в группе фильтров сбрасываем отступы и задаём нижний внешний отступ.*/
+  margin: 0;
+  margin-bottom: 30px;
+
+  border: none;
+}
+
+.filter fieldset:first-child {   /*12b А первому задаём большой нижний внешний отступ.*/
+  margin-bottom: 35px;
+}
+
+.filter legend {
+  margin-bottom: 26px;  /*10b Зададим нижний внешний отступ заголовкам групп фильтров.*/
+
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.filter ul {
+  padding: 0;   /*13b У списка фильтров сбрасываем отступы.*/
+  margin: 0;
+
+  list-style: none;
+  line-height: 18px;
+}
+
+.filter-option {
+  margin-bottom: 19px;  /*15b Задаём нижний внешний отступ.*/
+  padding-left: 45px;   /*16b Задаём внутренний левый отступ.*/
+
+  /*background: rgba(0, 128, 0, 0.2);  14b Каждый элемент списка временно подсвечиваем.
+  box-shadow: 0 0 0 3px green;*/
+}
+
+.filter-option label {
+  position: relative;   /*17b Делаем label блочным, задаём относительное позиционирование. Задаём курсор с указателем и отменяем выделение текста подписи цветом.*/
+
+  display: block;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-input:hover + label,
+.filter-input:focus + label {
+  color: #663d15;
+}
+
+.filter-input-checkbox + label::before {  /*18b Добавим стилизованные чекбоксы для полей выбора с типом checkbox.
+                                         Добавим псевдоэлемент, укажем его размеры и обводку.*/
+  content: "";
+  position: absolute;
+  left: -42px;         /*19b Зададим координаты.*/
+  top: 0;
+
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #000000;
+}
+
+.filter-input-checkbox:checked + label::after {  /*20b Теперь добавляем иконку, которая показывает, что поле выбрано.
+                                              Добавляем ещё один псевдоэлемент, задаём ему высоту, ширину и временный фон.*/
+  content: "";
+
+  position: absolute;
+  top: 4px;           /*21b Задаём координаты.*/
+  left: -38px;
+
+  width: 12px;
+  height: 12px;
+
+  /*background-color: green;*/
+  background-image: url("../img/svg-barbershop/cross.svg");  /*22b *Добавляем фоновое изображение.*/
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.filter-input-radio + label::before {  /*23bТеперь займёмся полями с типом radio. Добавляем псевдоэлемент, назначаем ему размеры и обводку. */
+  content: "";
+
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+  left: -42px;   /*24b Задаём координаты.*/
+  top: -1px;
+
+  border: 2px solid #000000;
+  border-radius: 50%;     /*25b Делаем псевдоэлемент круглым.*/
+}
+
+.filter-input:disabled + label {
+  color: #000000;
+
+  opacity: 0.5;
+}
+
+.filter-input-radio:checked + label::after { /*26b Теперь добавляем иконку, которая показывает, что поле выбрано.
+                                              Добавляем ещё один псевдоэлемент, задаём ему высоту, ширину и фон.*/
+  content: "";
+
+  position: absolute;
+  top: 5px;            /*27b Задаём координаты.*/
+  left: -36px;
+
+  width: 8px;
+  height: 8px;
+
+  background-color: #000000;
+  border-radius: 50%;      /*28b Делаем псевдоэлемент круглым.*/
+}
+
+.catalog {
+  width: 700px;
+}
+
+.catalog-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 25px;
+
+  list-style: none;
+}
+
+.catalog-item {
+  width: 220px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.catalog-item:nth-child(3n) {
+  margin-right: 0;
+}
+
+.catalog-item:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.catalog-item a {
+  display: flex;     /*29b Сделаем ссылку флекс-контейнером.*/
+  flex-direction: column;
+
+  color: #000000;
+}
+
+.catalog-item h3 {
+  order: 1;     /*30b Изменим порядок элементов внутри ссылки с помощью свойства order.*/
+  margin-top: 17px;   /*31b Зададим внешние отступы для заголовка.*/
+  margin-bottom: 12px;
+  margin-left: 16px;
+  margin-right: 15px;
+
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.catalog-category {
+  display: block;    /*32b Сделаем название категории блочным элементом.*/
+
+  text-transform: none;
+}
+
+.catalog-item-image {  /*33b Зададим изображению товара размеры и обнулим внешние отступы.*/
+  width: 220px;
+  height: 165px;
+  margin: 0;
+}
+
+.catalog-item-price {   /*34b Сделаем блок c ценой и кнопкой флекс-контейнером.*/
+  display: flex;
+  margin: 15px;      /*35b Зададим внешние отступы.*/
+  margin-top: 0;
+}
+
+.catalog-item-price b {
+  width: 112px;             /*36b Зададим ширину и внутренние отступы блоку с ценой.*/
+  padding: 13px 25px 11px;
+
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+
+  background-color: #e5e5e5;
+}
+
+.catalog-item-price .button {
+  width: 50px;               /*37b Зададим ширину и отступы кнопке.*/
+  padding: 13px 18px 11px;
+  margin-right: 0;
+
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.pagination-list {
+  display: flex;    /*38b Делаем список флекс-контейнером.*/
+  flex-wrap: wrap;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.pagination-item {
+  margin-right: 5px;   /*39b Зададим отступ справа для элементов пагинации.*/
+}
+
+.pagination-item:last-child {
+  margin-right: 0;           /*40b Обнулим отступ для последнего элемента.*/
+}
+
+.pagination-item a {
+  display: block;      /*41b Делаем ссылку блочным элементом и задаём внутренние отступы.*/
+  padding: 10px 19px;
+
+  color: #ffffff;
+
+  background-color: #000000;
+}
+
+.pagination-item a:hover,
+.pagination-item a:focus,
+.pagination-item a:active {
+  background-color: #663d15;
+}
+
+.pagination-item-current a {
+  color: #000000;
+
+  background-color: #ffffff;
+}
+
+.pagination-item-current a:hover,
+.pagination-item-current a:focus,
+.pagination-item-current a:active {
+  color: #000000;
+
+  background-color: #ffffff;
+}
+
+.product-photo-preview {
+  list-style: none;
+}
+
+.product-photo-preview li {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+.product-photo-full {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+.product-article {
+  text-align: right;
+  color: #aeaeae;
+}
+
+.product-price b {
+  line-height: 20px;
+  text-align: center;
+
+  background-color: #e5e5e5;
+}
+
+.product-info h3 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.product-info ul {
+  list-style: none;
+}
+
+.main-footer {
+  margin-top: 65px;
+  padding: 60px 0;
+
+  color: #ffffff;
+
+  background-color: #212121;
+  background-image: url("img/pattern-dark.jpg");
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.main-footer .container {
+  display: flex;
+}
+
+.footer-contacts {
+  width: 320px;
+  margin: 0;
+  margin-right: 80px;
+}
+
+.footer-contacts a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-contacts a:hover,
+.footer-contacts a:focus {
+  text-decoration: none;
+}
+
+.footer-social {
+  width: 145px;
+
+  text-align: center;
+}
+
+.footer-social ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 141px;
+  margin: 0 auto;
+  padding: 0;
+
+  list-style: none;
+}
+
+.footer-social b {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+
+  background-color: #000000;
+}
+
+.social-button:hover,
+.social-button:focus {
+  background-color: #ffffff;
+}
+
+.social-button:hover path,
+.social-button:focus path {
+  fill: #000000;
+}
+
+.footer-copyright {
+  width: 150px;
+  margin: 0;
+  margin-left: auto;
+  text-align: center;
+}
+
+.footer-copyright .button {
+  display: block;
+  margin-right: 0;
+}
+
+.footer-copyright b {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.footer-copyright .button:hover,
+.footer-copyright .button:focus {
+  color: #000000;
+
+  background-color: #ffffff;
+}
+
+/*2a. Всплывающая форма */
+.modal {
+  position: fixed;
+
+  color: #000000;
+
+  background-color: #f8f3f0;
+  background-image: url("img/pattern-light.jpg");
+  background-position: 0 0;
+  background-repeat: repeat;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7);
+}
+
+.modal-login {
+  position: fixed;
+  top: 338px;
+  left: 50%;
+
+  width: 300px;
+  margin-left: -230px;
+  padding: 50px 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
